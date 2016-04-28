@@ -17,6 +17,10 @@ var routes = Routes{
 			"Index", Index,
 	},
 
+	Route { "POST", "/load/{docKey:.+}",
+			"Loader", Loader,
+	},
+
 	Route{ "GET", "/show/{docKey:.+}",
 			"Presenter", Presenter,
 	},

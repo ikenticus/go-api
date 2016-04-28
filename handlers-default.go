@@ -14,22 +14,23 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 func Presenter(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	fmt.Fprint(w, "Doc Key: ", strings.Replace(vars["docKey"], "/", "_", -1), "\n")
+	var docKey string
+	docKey = strings.Replace(vars["docKey"], "/", "_", -1)
+	//fmt.Fprint(w, "Doc Key: ", docKey, "\n")
 
-	/*
-	todo := RepoFindTodo(todoId)
-	if todo.Id > 0 {
-		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	var docJson interface{}
+	docJson = DocStoreGet(docKey)
+	if docJson != nil {
 		w.WriteHeader(http.StatusOK)
-		if err := json.NewEncoder(w).Encode(todo); err != nil {
+		if err := json.NewEncoder(w).Encode(docJson); err != nil {
 			panic(err)
 		}
 		return
 	}
-	*/
 
 	// 404 when no document found
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusNotFound)
 	if err := json.NewEncoder(w).Encode(jsonErr{Code: http.StatusNotFound, Text: "Not Found"}); err != nil {
 		panic(err)
