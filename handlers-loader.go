@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+//	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -11,10 +11,8 @@ import (
 )
 
 /*
-	TEST:
-	curl -H "Content-Type: application/json" \
-		-d '{"feed": "test"}' \
-		http://localhost:8080/load/document_name
+	TEST CURL:
+	curl -H "Content-Type: application/json" -d '{"category": "generic", "test": true, "serial": 1}' http://localhost:8080/load/generic_test_document_key
 */
 func Loader(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
